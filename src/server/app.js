@@ -25,13 +25,14 @@ app.set('view engine', 'ejs');
 
 // server is up!
 app.get('/', (req, res) => {
-	console.log('hey');
+	//console.log('hey');
 	res.send('Hello World!');
 });
 
 // echoes the parameters back
-app.post('/echo/:param?', (req, res) => {
+app.post('/echo/:p1/:p2?', (req, res) => {
 	res.cookie('session', uuid.v4());
+	//console.log(res.cookie, res.cookies);
 	res.status(200).json({
 		params: req.params,
 		query: req.query,
@@ -57,15 +58,13 @@ app.get('/echo/test', (req, res) => {
 			f1: 'field1', f2: 456, f3: false, f4: {}, f5: []
 		}
 	}, (error, response, body) => {
-		var myBody = {
+		res.json({
 			method: response.request.method,
 			url: response.request.uri.href,
 			statusCode: response.statusCode,
 			headers: response.headers,
 			body: body
-		};
-
-		res.json(myBody);
+		});
 	});
 });
 
@@ -74,7 +73,15 @@ app.get('/index', (req, res) => {
 	res.render('main', {react: 'Index'});
 });
 
+// if(!process.env.TEST) {
+// 	app.listen(port, () => {
+// 		console.log(`Listening on port ${port}...`);
+// 	});	
+// }
 
-app.listen(port, () => {
-	console.log(`Listening on port ${port}...`);
-});
+export default app;
+
+
+//console.log(server);
+
+
