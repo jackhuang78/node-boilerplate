@@ -1,17 +1,25 @@
 import React from 'react';
 import {Panel, PageHeader} from 'react-bootstrap';
 
-
-var Index = React.createClass({
-	render: function() {
+// define a React componenet
+class Index extends React.Component {
+	render() {
 		return (
 			<div>
-				<Panel style={{margin: 30}}>
-					<PageHeader>This is a node skeleton</PageHeader>
+				<Panel style={this.constructor.styles.panel}>
+					<PageHeader>node-boilerplate</PageHeader>
 				</Panel>
 			</div>
 		);
 	}
-});
+}
+
+// CSS for Index
+Index.styles = {
+	panel: {
+		margin: 30
+	}
+};
+
 
 export default Index;

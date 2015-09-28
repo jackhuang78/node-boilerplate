@@ -8,8 +8,8 @@
     "test": "npm run build && mocha --compilers js:babel/register build/test",
     "start": "supervisor -w build/server -n exit build/server/start.js",
     "lint": "eslint src",
+    "watch:ui": "mkdir -p build/client && watchify -v -o build/client/bundle.js src/client/main.js ",
     "build:server": "mkdir -p build/server && babel -w -d build/server src/server",
-    "test:server": "mocha --compilers js:babel/register test/http",
     "build:client": "mkdir -p build/client && watchify -v -o build/client/bundle.js src/client/main.js "
   },
   "author": "Jack Huang",

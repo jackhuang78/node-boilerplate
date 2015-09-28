@@ -6,7 +6,7 @@ import colors from 'colors';
 describe('App.js', () => {
   var server = null;
   before((done) => {
-    server = app.listen(9999, () => {
+    server = app.listen(8888, () => {
       console.log('*** Server started ***'.yellow);
       done();
     });

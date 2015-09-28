@@ -32,7 +32,6 @@ app.get('/', (req, res) => {
 // echoes the parameters back
 app.post('/echo/:p1/:p2?', (req, res) => {
 	res.cookie('session', uuid.v4());
-	//console.log(res.cookie, res.cookies);
 	res.status(200).json({
 		params: req.params,
 		query: req.query,
@@ -42,46 +41,11 @@ app.post('/echo/:p1/:p2?', (req, res) => {
 	});
 });
 
-// create a dummy request to POST /echo
-app.get('/echo/test', (req, res) => {
-	request.post({
-		url: url.format({
-			protocol: 'http', 
-			hostname: 'localhost', 
-			port: 9999, 
-			pathname: '/echo/myParam', 
-			query: {
-				q1: 'string', q2: 123, q3: true
-			}
-		}),
-		json: {
-			f1: 'field1', f2: 456, f3: false, f4: {}, f5: []
-		}
-	}, (error, response, body) => {
-		res.json({
-			method: response.request.method,
-			url: response.request.uri.href,
-			statusCode: response.statusCode,
-			headers: response.headers,
-			body: body
-		});
-	});
-});
-
 // show a page with React component
 app.get('/index', (req, res) => {
-	res.render('main', {react: 'Index'});
+	res.render('main', {title: 'node-boilerplate', react: 'Index'});
 });
 
-// if(!process.env.TEST) {
-// 	app.listen(port, () => {
-// 		console.log(`Listening on port ${port}...`);
-// 	});	
-// }
-
 export default app;
-
-
-//console.log(server);
 
 
