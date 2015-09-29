@@ -33,13 +33,13 @@ class App {
 
 		// server is up!
 		this.app.get('/', (req, res) => {
-			res.send('Hello World!');
+			return res.send('Hello World!');
 		});
 
 		// echoes the parameters back
 		this.app.post('/echo/:p1/:p2?', (req, res) => {
 			res.cookie('session', uuid.v4());
-			res.status(200).json({
+			return res.status(200).json({
 				params: req.params,
 				query: req.query,
 				cookie: req.cookies,
@@ -50,7 +50,7 @@ class App {
 
 		// show a page with React component
 		this.app.get('/index', (req, res) => {
-			res.render('main', {title: 'node-boilerplate', react: 'Index'});
+			return res.render('main', {title: 'node-boilerplate', react: 'Index'});
 		});
 	}
 
@@ -64,10 +64,10 @@ class App {
 		return new Promise((res, rej) => {
 			this.server = this.app.listen(port)
 			.on('listening', () => {
-				res(port);
+				return res(port);
 			}).on('error', (err) => {
 				err.meta = {port: port};
-				rej(err);
+				return rej(err);
 			});
 		});
 		
@@ -80,7 +80,10 @@ class App {
 	 */
 	stop(cb) {
 		return new Promise((res, rej) => {
-			this.server.close(res());
+			if(!this.server)
+				return rej(new Error('ENOTRUNNING'));
+			
+			return this.server.close(res());
 		});
 		
 	}
