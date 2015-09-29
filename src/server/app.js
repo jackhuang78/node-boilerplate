@@ -9,7 +9,6 @@ var app = express();
 var port = process.env.PORT || 9999;
 
 
-
 // set static path
 app.use(express.static('node_modules'));
 app.use(express.static('build/client'));

@@ -8,11 +8,14 @@ class Index extends React.Component {
 			<div>
 				<Panel style={this.constructor.styles.panel}>
 					<PageHeader>node-boilerplate</PageHeader>
+					Hello
 				</Panel>
 			</div>
 		);
 	}
 }
+
+
 
 // CSS for Index
 Index.styles = {
