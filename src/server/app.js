@@ -5,46 +5,76 @@ import request from 'request';
 import url from 'url';
 import uuid from 'uuid';
 
-var app = express();
-var port = process.env.PORT || 9999;
+
+class App {
+
+	/**
+	 * Create an app that contains an Express server. Initialize all REST handlers.
+	 * @class App
+	 */
+	constructor() {
+		
+		// Express instance
+		this.app = express();
+
+		// set static path
+		this.app.use(express.static('node_modules'));
+		this.app.use(express.static('build/client'));
+
+		// set parsers
+		this.app.use(cookieParser());
+		this.app.use(bodyParser.urlencoded({extended:true}));
+		this.app.use(bodyParser.json());
+
+		// set view and view engine
+		this.app.set('views', 'src/client');
+		this.app.set('view engine', 'ejs');
+
+		// server is up!
+		this.app.get('/', (req, res) => {
+			res.send('Hello World!');
+		});
+
+		// echoes the parameters back
+		this.app.post('/echo/:p1/:p2?', (req, res) => {
+			res.cookie('session', uuid.v4());
+			res.status(200).json({
+				params: req.params,
+				query: req.query,
+				cookie: req.cookies,
+				body: req.body,
+				headers: req.headers
+			});
+		});
+
+		// show a page with React component
+		this.app.get('/index', (req, res) => {
+			res.render('main', {title: 'node-boilerplate', react: 'Index'});
+		});
+	}
+
+	/**
+	 * Start the App as a server.
+	 * @method App#start
+	 * @param  {Number} port The port to run the server on.
+	 * @param  {Function} cb Callback.
+	 */
+	start(port, cb) {
+		this.server = this.app.listen(port, cb);
+	}
+
+	/**
+	 * Stop the server.
+	 * @method App#stop
+	 * @param  {Function} cb Callback.
+	 */
+	stop(cb) {
+		this.server.close(cb());
+	}
+}
 
 
-// set static path
-app.use(express.static('node_modules'));
-app.use(express.static('build/client'));
 
-// set parsers
-app.use(cookieParser());
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
-
-// set view and view engine
-app.set('views', 'src/client');
-app.set('view engine', 'ejs');
-
-// server is up!
-app.get('/', (req, res) => {
-	//console.log('hey');
-	res.send('Hello World!');
-});
-
-// echoes the parameters back
-app.post('/echo/:p1/:p2?', (req, res) => {
-	res.cookie('session', uuid.v4());
-	res.status(200).json({
-		params: req.params,
-		query: req.query,
-		cookie: req.cookies,
-		body: req.body,
-		headers: req.headers
-	});
-});
-
-// show a page with React component
-app.get('/index', (req, res) => {
-	res.render('main', {title: 'node-boilerplate', react: 'Index'});
-});
-
-export default app;
+export default App;
 
 

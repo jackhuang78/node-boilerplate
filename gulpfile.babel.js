@@ -1,12 +1,14 @@
 import gulp from 'gulp';
 import del from 'del';
-//import babel from 'gulp-babel';
+import babel from 'gulp-babel';
 import nodemon from 'gulp-nodemon';
 import watchify from 'watchify';
 import browserify from 'browserify';
 import babelify from 'babelify';
 import mocha from 'gulp-mocha';
-import babel from 'babel-core/register';
+//import babel from 'babel-core/register';
+//import jsdoc from 'gulp-jsdoc';
+import shell from 'gulp-shell';
 
 import source from 'vinyl-source-stream';
 import sourcemaps from 'gulp-sourcemaps';
@@ -50,6 +52,8 @@ function build() {
 };
 gulp.task('build', build);
 
+
+
 // bundle
 var b = watchify(browserify({
 	entries: ['src/client/main.js'],
@@ -72,5 +76,8 @@ function bundle() {
 gulp.task('bundle', bundle);
 
 
+gulp.task('jsdoc', ['build'], shell.task([
+	'node_modules/.bin/jsdoc -r -t node_modules/minami -d doc build/**/*.js'
+]));
 
 
