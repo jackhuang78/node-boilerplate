@@ -8,9 +8,11 @@ This project contains all the modules, tools, and code templates that I commonly
 ### Tools
 - [git](https://git-scm.com/) - version control
 - [npm](https://www.npmjs.com/) - module management
+- [gulp](http://gulpjs.com/) - build tasks
+- [mocha](https://mochajs.org/) - unit testing
 - [babel](https://babeljs.io/) - ES6 compiler
-- [browserify](http://browserify.org/) - code bundling on browser
-- [supervisor](https://github.com/petruisfan/node-supervisor) - hot coding server
+- [browserify](http://browserify.org/)/[watchify](https://www.npmjs.com/browse/keyword/watchify) - code bundling for browser
+- [nodemon](http://nodemon.io/) - hot loading server
 - [eslint](http://eslint.org/) - js/jsx linter
 
 ### Modules
@@ -25,15 +27,18 @@ This project contains all the modules, tools, and code templates that I commonly
 ### Download
     git clone https://github.com/jhuang78/node-boilerplate.git
     npm install
+    npm install -g gulp
 
-### Build (watch mode)
-    npm run build-server
-    npm run build-client
-    
-### Run
-    npm start
-    
 ### Test
+    gulp test
+
+### Build Backend & Run (watch mode)
+    gulp start
+    
+### Bundle Frontend (watch mode)
+    gulp bundle
+
+### Play with it
     curl localhost:9999
     curl localhost:9999/echo/test
     open http://localhost:9999/index
