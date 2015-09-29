@@ -9,7 +9,8 @@ import uuid from 'uuid';
 class App {
 
 	/**
-	 * Create an app that contains an Express server. Initialize all REST handlers.
+	 * Create an app that contains an Express server. 
+	 * Initialize all REST handlers.
 	 * @class App
 	 */
 	constructor() {
@@ -57,7 +58,7 @@ class App {
 	 * Start the App as a server.
 	 * @method App#start
 	 * @param  {Number} [port=9999] The port to run the server on.
-	 * @param  {App~startCallback} [cb] Callback.
+	 * @return {Promise.<Number>} The port number of the server.
 	 */
 	start(port = 9999) {
 		return new Promise((res, rej) => {
@@ -75,7 +76,7 @@ class App {
 	/**
 	 * Stop the server.
 	 * @method App#stop
-	 * @return {Promise} promise.
+	 * @return {Promise} 
 	 */
 	stop(cb) {
 		return new Promise((res, rej) => {
