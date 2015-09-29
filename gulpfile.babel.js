@@ -45,7 +45,8 @@ gulp.task('start', () => {
 
 // build
 function build() {
-	console.log('build...');
+	gutil.log('building...');
+	//console.log('build...');
   return gulp.src('src/server/**/*')
     .pipe(babel())
     .pipe(gulp.dest('build/server'));

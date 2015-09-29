@@ -56,20 +56,32 @@ class App {
 	/**
 	 * Start the App as a server.
 	 * @method App#start
-	 * @param  {Number} port The port to run the server on.
-	 * @param  {Function} cb Callback.
+	 * @param  {Number} [port=9999] The port to run the server on.
+	 * @param  {App~startCallback} [cb] Callback.
 	 */
-	start(port, cb) {
-		this.server = this.app.listen(port, cb);
+	start(port = 9999) {
+		return new Promise((res, rej) => {
+			this.server = this.app.listen(port)
+			.on('listening', () => {
+				res(port);
+			}).on('error', (err) => {
+				err.meta = {port: port};
+				rej(err);
+			});
+		});
+		
 	}
 
 	/**
 	 * Stop the server.
 	 * @method App#stop
-	 * @param  {Function} cb Callback.
+	 * @return {Promise} promise.
 	 */
 	stop(cb) {
-		this.server.close(cb());
+		return new Promise((res, rej) => {
+			this.server.close(res());
+		});
+		
 	}
 }
 

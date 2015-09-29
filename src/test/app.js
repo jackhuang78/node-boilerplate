@@ -10,9 +10,11 @@ describe('App.js', () => {
 
 	before((done) => {
 		
-		app.start(port, () => {
+		app.start(port).then((port) => {
 			console.log(`*** Server started on localhost:${port} ***`.yellow);
 			done();
+		}).catch((err) => {
+			done(err);
 		});
 	});
 
@@ -49,9 +51,13 @@ describe('App.js', () => {
 	});
 
 	after((done) => {
-		app.stop(() => {
+		app.stop().then(() => {
 			console.log(`*** Server stopped ***`.yellow);
 			done();
 		});
+		// app.stop(() => {
+		// 	console.log(`*** Server stopped ***`.yellow);
+		// 	done();
+		// });
 	});
 });
