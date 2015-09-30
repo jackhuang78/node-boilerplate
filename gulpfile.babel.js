@@ -76,8 +76,8 @@ function bundle() {
 gulp.task('bundle', bundle);
 
 
-gulp.task('jsdoc', ['build'], shell.task([
-	'node_modules/.bin/jsdoc -r -t node_modules/minami -d doc build/**/*.js'
+gulp.task('doc', ['build'], shell.task([
+	'node_modules/.bin/jsdoc -r -t node_modules/minami -d doc/jsdoc build/**/*.js && node_modules/.bin/apidoc -o doc/apidoc -i build/server'
 ]));
 
 

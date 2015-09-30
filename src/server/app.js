@@ -12,6 +12,7 @@ class App {
 	 * Create an app that contains an Express server. 
 	 * Initialize all REST handlers.
 	 * @class App
+	 * 
 	 */
 	constructor() {
 		
@@ -31,12 +32,33 @@ class App {
 		this.app.set('views', 'src/client');
 		this.app.set('view engine', 'ejs');
 
-		// server is up!
+		/**
+		 * @api {get} / Helle World!
+		 * @apiGroup App
+		 * @apiSuccess (200 OK) {String} - Hello World!
+		 * @apiSuccessExample 200 OK
+		 * 	Hello World!
+		 * 	
+		 */
 		this.app.get('/', (req, res) => {
 			return res.send('Hello World!');
 		});
 
-		// echoes the parameters back
+		
+		/**
+		 * @api {post} /echo/:p1/:p2?
+		 * @apiGroup App
+		 * @apiParam {String} p1 Path parameter 1.
+		 * @apiParam {String} [p2] Path parameter 2.
+		 * @apiParam {String} [q1] Query parameter 1.
+		 * @apiParam {String} [q2] Query parameter 2.
+		 * @apiParam {application/json} [body] 
+		 * @apiParam {String} [body.f1] Field 1.
+		 * @apiParam {Number} [body.f2] Field 1.
+		 * @apiParam {Boolean} [body.f3] Field 1.
+		 * 
+		 *
+		 */
 		this.app.post('/echo/:p1/:p2?', (req, res) => {
 			res.cookie('session', uuid.v4());
 			return res.status(200).json({
@@ -77,6 +99,7 @@ class App {
 	 * Stop the server.
 	 * @method App#stop
 	 * @return {Promise} 
+	 * 
 	 */
 	stop(cb) {
 		return new Promise((res, rej) => {
