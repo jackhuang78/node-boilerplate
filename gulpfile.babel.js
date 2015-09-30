@@ -28,13 +28,13 @@ gulp.task('clean', () => {
 
 // run mocha test
 gulp.task('test', () => {
-	return gulp.src('src/test/**/*')
+	return gulp.src('src.example/test/**/*')
 		.pipe(mocha({compiler: {js: babel}}));
 });
 
 gulp.task('start', () => {
 	nodemon({
-		watch: ['src/server/**/*', 'gulpfile.babel.js' ],
+		watch: ['src.example/server/**/*', 'gulpfile.babel.js' ],
 		script: 'build/server/start.js',
 		env: {PORT: 9999},
 		tasks: ['default']	// <-- wait for this to work...
@@ -46,7 +46,7 @@ gulp.task('start', () => {
 // build
 function build() {
 	gutil.log('building...');
-  return gulp.src('src/server/**/*')
+  return gulp.src('src.example/server/**/*')
     .pipe(babel())
     .pipe(gulp.dest('build/server'));
 };
@@ -56,7 +56,7 @@ gulp.task('build', build);
 
 // bundle
 var b = watchify(browserify({
-	entries: ['src/client/main.js'],
+	entries: ['src.example/client/main.js'],
 	debug: true
 })).transform(babelify);
 b.on('update', bundle);
