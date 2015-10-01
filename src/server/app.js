@@ -40,7 +40,7 @@ class App {
 		 * 	Hello World!
 		 * 	
 		 */
-		this.app.get('/hello', (req, res) => {
+		this.app.get('/', (req, res) => {
 			return res.send('Hello World!');
 		});
 
