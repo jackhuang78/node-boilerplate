@@ -74,6 +74,10 @@ class App {
 		this.app.get('/index', (req, res) => {
 			return res.render('main', {title: 'node-boilerplate', react: 'Index'});
 		});
+
+		this.app.get('/spa', (req, res) => {
+			return res.render('main', {title: 'node-boilerplate spa', react: 'Spa'});
+		});
 	}
 
 	/**
