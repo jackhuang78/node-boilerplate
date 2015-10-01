@@ -1,17 +1,22 @@
 import React from 'react';
 import {Router, Route, RouteHandler} from 'react-router';
-import {Panel, PageHeader} from 'react-bootstrap';
+import {Panel, PageHeader, Nav, NavItem} from 'react-bootstrap';
 
 // define a React componenet
 class Index extends React.Component {
 	render() {
+		console.log(this.props.location);
 		return (
 			<div>
 				<Panel style={this.constructor.styles.panel}>
 					<PageHeader>node-boilerplate</PageHeader>
-					Hello
+					<Nav bsStyle='tabs' activeKey={this.props.location.pathname}>
+						{/*<NavItem eventKey='' href=''>Index</NavItem>*/}
+						<NavItem eventKey='/home' href='#home'>Home</NavItem>
+						<NavItem eventKey='/about' href='#about'>About</NavItem>
+					</Nav>
 					<br/>
-					<RouteHandler />  
+					{this.props.children}
 				</Panel>
 			</div>
 		);
@@ -20,24 +25,28 @@ class Index extends React.Component {
 
 class Home extends React.Component {
 	render() {
-		return (<div>home</div>);
+		return (<h2>home</h2>);
 	}
 }
 
 class About extends React.Component {
 	render() {
-		return (<div>about</div>);
+		return (<h2>about</h2>);
 	}
 }
 
-var routes = (
-		<Route path="index" handler={Index}>
-			<Route path="home" handler={Home} />
-			<Route path="about" handler={About} />
-		</Route>
-);
-//routes.props.isRoutes = true;
-
+class R extends React.Component {
+	render() {
+		return (
+			<Router>
+				<Route path="/" component={Index}>
+					<Route path="home" component={Home} />
+					<Route path="about" component={About} />
+				</Route>
+			</Router>
+		);
+	}
+}
 
 
 // CSS for Index
@@ -47,8 +56,5 @@ Index.styles = {
 	}
 };
 
-console.log(Index);
-console.log(routes);
 
-//export default Index;
-export default routes;
+export default R;

@@ -40,7 +40,7 @@ class App {
 		 * 	Hello World!
 		 * 	
 		 */
-		this.app.get('/', (req, res) => {
+		this.app.get('/hello', (req, res) => {
 			return res.send('Hello World!');
 		});
 
@@ -73,10 +73,6 @@ class App {
 		// show a page with React component
 		this.app.get('/index', (req, res) => {
 			return res.render('main', {title: 'node-boilerplate', react: 'Index'});
-		});
-
-		this.app.get('/spa', (req, res) => {
-			return res.render('main', {title: 'node-boilerplate spa', react: 'Spa'});
 		});
 	}
 
